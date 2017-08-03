@@ -4,6 +4,13 @@ import os
 from matplotlib import pyplot as plt
 from .demon.python.depthmotionnet.networks_original import *
 
+import sys
+import os
+
+CUR_PATH = os.path.dirname(os.path.realpath(__file__))
+print(os.path.join(CUR_PATH, './demon/lmbspecialops/python'))
+sys.path.append(os.path.join(CUR_PATH, './demon/lmbspecialops/python'))
+
 
 # TODO: Fix this shit to accept TF images
 def prepare_input_data(img1, img2, data_format):

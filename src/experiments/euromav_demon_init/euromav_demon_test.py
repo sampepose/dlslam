@@ -5,7 +5,7 @@ python3 src/experiments/euromav_demon_init/euromav_demon_test.py
 
 import math
 import sys
-sys.path.append('../..')
+sys.path.append('../../..')
 import os
 CUR_PATH = os.path.dirname(os.path.realpath(__file__))
 
