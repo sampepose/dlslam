@@ -72,6 +72,10 @@ default_hyp['log_freq_v'] = 100
 # doesn't log the graph
 default_hyp['do_fast_logging'] = True
 
+#----------- misc -----------#
+default_hyp['eps'] = 1.0e-6
+default_hyp['pad'] = "SYMMETRIC"
+
 #----------- camera intrinsics  -----------#
 fy = 725.0
 fx = 725.0

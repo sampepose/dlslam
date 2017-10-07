@@ -3,6 +3,46 @@ import sys
 sys.path.append('..')
 
 
+def read_and_decode_blendswap(filename_queue):
+    compress = tf.python_io.TFRecordOptions(
+        compression_type=tf.python_io.TFRecordCompressionType.GZIP)
+    reader = tf.TFRecordReader(options=compress)
+    _, serialized_example = reader.read(filename_queue)
+    features = tf.parse_single_example(
+        serialized_example,
+        features={
+            'image1': tf.FixedLenFeature([], tf.string),
+            'image2': tf.FixedLenFeature([], tf.string),
+            'relativeTranslation1to2': tf.FixedLenFeature([3], tf.float32),
+            'relativeRotation1to2': tf.FixedLenFeature([3], tf.float32),
+            'depth1': tf.FixedLenFeature([], tf.string),
+            'flow1to2': tf.FixedLenFeature([], tf.string),
+        })
+
+    h, w = 480, 640
+    i1 = tf.decode_raw(features['image1'], tf.uint8)
+    i2 = tf.decode_raw(features['image2'], tf.uint8)
+    d1 = tf.decode_raw(features['depth1'], tf.float32)
+    f1 = tf.decode_raw(features['flow1to2'], tf.float32)
+    relativeTranslation1to2 = features['relativeTranslation1to2']
+    relativeRotation1to2 = features['relativeRotation1to2']
+
+    im_shape = tf.stack([h, w, 3])
+    i1 = tf.reshape(i1, im_shape)
+    i2 = tf.reshape(i2, im_shape)
+
+    depth_shape = tf.stack([h, w, 1])
+    d1 = tf.reshape(d1, depth_shape)
+
+    flow_shape = tf.stack([h, w, 2])
+    f1 = tf.reshape(f1, flow_shape)
+
+    relativeTranslation1to2 = tf.reshape(relativeTranslation1to2, [3])
+    relativeRotation1to2 = tf.reshape(relativeRotation1to2, [3])
+
+    return (h, w, i1, i2, d1, f1, relativeTranslation1to2, relativeRotation1to2)
+
+
 def read_and_decode_svkitti(filename_queue):
     compress = tf.python_io.TFRecordOptions(
         compression_type=tf.python_io.TFRecordCompressionType.GZIP)

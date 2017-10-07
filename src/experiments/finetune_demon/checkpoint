@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/spepose/dlslam/src/experiments/finetune_demon/logs"
+all_model_checkpoint_paths: "/home/spepose/dlslam/src/experiments/finetune_demon/logs"

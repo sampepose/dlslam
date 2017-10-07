@@ -1,6 +1,6 @@
 import tensorflow as tf
 import math
-from src.extras import *
+from src.utils import *
 
 EPS = 1e-6
 

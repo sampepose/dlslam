@@ -124,7 +124,7 @@ num_tfrecords = 50  # let's just see how we do for the first 50 image pairs
 # p_v1: camera pose at t
 # p_v2: camera pose at t + 1
 (i_v1, i_v2, _, _, p_v1, p_v2) = bat.euromav_batch(
-    hyp.dataset_location + 'records.txt', hyp, shuffle=False)
+    hyp.dataset_location + 'records.txt', hyp, shuffle=False, crop=True)
 
 # Variables to hold the predicted and gt camera pose over time
 pose_gt = []
